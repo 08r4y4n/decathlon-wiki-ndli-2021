@@ -64,12 +64,36 @@
 
         <h1>Welcome to Decathlon's Wikipedia !</h1>
         <p>Sur ce site vous allez pouvoir rechercher les différents sports grâce à l'API de Decathlon !</p>
-        <form action="resultat.php" method="post">
-            Sport: <input type="text" name="sport" placeholder="Rechercher..."><br>
-            <input type="submit">
+        <button type="button" onclick="document.getElementById('demo').innerHTML = Date()">
+            Click me to display Date and Time.</button>
+        <p id="demo"></p>
 
-        </form>
+        <script>
 
+            // API for get requests
+            let fetchRes = fetch(
+                "https://sports.api.decathlon.com/sports");
+
+            // fetchRes is the promise to resolve
+            // it by using.then() method
+            fetchRes.then(res =>
+                res.json()).then(d => {
+                    //document.getElementById("demo").innerHTML = this.data[0].type;
+                    console.log(d)
+                })
+
+
+            fetch('https://sports.api.decathlon.com/sports')
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    document.getElementById("demo").innerHTML = data.data[0].attributes.name;
+                })
+                .catch(function (err) {
+                    console.log('error: ' + err);
+                });
+        </script>
 
     </body>
 
