@@ -121,18 +121,17 @@
                     var imgsport = data.data[i].attributes.icon;
                     var descsport = data.data[i].attributes.description;
                     var idsport = data.data[i].id;
-                    var linksport = data.data[i].links.self;
 
                     var img = document.createElement('img');
                     var li = document.createElement('li');
                     var nom = document.createElement('p');
                     var desc = document.createElement('p');
-                    var link = document.createElement('p');
+                    var link = document.createElement('a');
 
                     img.id = idsport + 'img';
                     nom.id = idsport + 'nom';
                     desc.id = idsport + 'desc';
-                    link.id = idsport+'link';
+                    link.id = idsport + 'link';
                     li.id = idsport;
 
                     img.width = "50";
@@ -143,7 +142,7 @@
 
                     desc.append(descsport);
                     desc.style.display = 'none';
-                    desc.style.margin = "5px";
+                    desc.style.margin = "0px";
                     desc.style.padding = "5px";
                     desc.style.background = "#BEDEEF"
                     desc.style.borderRadius = "6px";
@@ -157,9 +156,11 @@
 
                     link.append("Explore more !");
                     link.style.display = 'none'
-                    link.style.position = "relative";
-                    link.style.bottom = "2px";
-                    link.style.right = "2px";
+                    link.style.position = "absolute";
+                    link.style.bottom = "3px";
+                    link.style.right = "5px";
+                    link.href = "bruh.html";
+
 
                     li.append(img);//Image dans li
                     li.append(nom);
@@ -172,6 +173,7 @@
                     li.style.margin = "3px";
                     li.style.padding = "3px";
                     li.style.background = "#7EBEE0";
+                    li.style.position = "relative";
 
                     ul.appendChild(li);//Li dans ul
                 }
@@ -199,13 +201,17 @@
         }
         function markSelection() {
             var desc = document.getElementById(this.id + 'desc');
-            var link = document.getElementById(this.id+'link');
+            var link = document.getElementById(this.id + 'link');
             if (desc.style.display === 'none') {
                 desc.style.display = 'block';
                 link.style.display = 'block';
+                this.style.paddingBottom = "35px";
+
             } else {
                 desc.style.display = 'none';
                 link.style.display = 'none';
+                this.style.paddingBottom = "0px";
+
             }
         }
 
