@@ -100,14 +100,21 @@
                         //document.getElementById("demo").innerHTML = data.data[i].attributes.name;
                         var nomsport = data.data[i].attributes.name;
                         var imgsport = data.data[i].attributes.icon;
+                        var descsport = data.data[i].attributes.description;
                         var img = document.createElement('img');
                         var li = document.createElement('li');
-                        img.width="42";
-                        img.height="42";
-                        img.style="vertical-align:middle";
-                        img.src=data.data[i].attributes.icon;//url image pour src
-                        li.innerHTML = nomsport;
-                        li.appendChild(img);//Image dans li
+                        var desc = document.createElement('p');
+
+                        img.width = "42";
+                        img.height = "42";
+                        img.style = "vertical-align:middle";
+                        img.src = imgsport;//url image pour src
+                        desc.append(descsport);
+
+                        li.append(img);//Image dans li
+                        li.append(nomsport);
+                        li.append(desc);
+                        li.onclick=markSelection;
                         ul.appendChild(li);//Li dans ul
                     }
                 })
@@ -131,6 +138,13 @@
                     } else {
                         li[i].style.display = "none";
                     }
+                }
+            }
+            function markSelection() {
+                if (this.style.fontWeight!=="bold"){
+                    this.style.fontWeight="bold";
+                } else{
+                    this.style.fontWeight="normal";
                 }
             }
         </script>
