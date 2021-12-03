@@ -23,7 +23,6 @@
 
     ul.epure {
         list-style-type: none;
-        display: none;
     }
 
     body {
@@ -82,10 +81,11 @@
             </g>
         </g>
     </svg>
-    <a class="active" href="#home">Home</a>
+    <a class="active" href="index.html">Home / Search</a>
     <a href="#about">A propos</a>
     <a href="#contact">Contact</a>
-    <input class="sportSearch" type="text" id="mySearch" onkeyup="searchFunction()" onmouseover="afficheResultats()" placeholder="Search for a sport...">
+    <input class="sportSearch" type="text" id="mySearch" onkeyup="searchFunction()" /*onclick="afficheResultats()" */
+        placeholder="Search for a sport...">
 </div>
 
 </head>
@@ -121,15 +121,18 @@
                     var imgsport = data.data[i].attributes.icon;
                     var descsport = data.data[i].attributes.description;
                     var idsport = data.data[i].id;
+                    var linksport = data.data[i].links.self;
 
                     var img = document.createElement('img');
                     var li = document.createElement('li');
                     var nom = document.createElement('p');
                     var desc = document.createElement('p');
+                    var link = document.createElement('p');
 
                     img.id = idsport + 'img';
                     nom.id = idsport + 'nom';
                     desc.id = idsport + 'desc';
+                    link.id = idsport+'link';
                     li.id = idsport;
 
                     img.width = "50";
@@ -152,9 +155,16 @@
                     nom.style.background = "#BEDEEF";
                     nom.style.fontSize = "22px";
 
+                    link.append("Explore more !");
+                    link.style.display = 'none'
+                    link.style.position = "relative";
+                    link.style.bottom = "2px";
+                    link.style.right = "2px";
+
                     li.append(img);//Image dans li
                     li.append(nom);
                     li.append(desc);
+                    li.append(link);
 
                     li.onclick = markSelection;
                     li.style.cursor = "pointer";
@@ -189,14 +199,17 @@
         }
         function markSelection() {
             var desc = document.getElementById(this.id + 'desc');
+            var link = document.getElementById(this.id+'link');
             if (desc.style.display === 'none') {
                 desc.style.display = 'block';
+                link.style.display = 'block';
             } else {
                 desc.style.display = 'none';
+                link.style.display = 'none';
             }
         }
 
-        function afficheResultats(){
+        function afficheResultats() {
             var res = document.getElementById("resultatDeRecherche");
             if (res.style.display === 'none') {
                 res.style.display = 'block';
