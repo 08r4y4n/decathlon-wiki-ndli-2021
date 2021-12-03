@@ -54,117 +54,115 @@
 </style>
 </head>
 
+<div class="topnav">
+    <a class="active" href="#home">Home</a>
+    <a href="#about">A propos</a>
+    <a href="#contact">Contact</a>
+</div>
+
+</head>
+
 <body>
 
-    <div class="topnav">
-        <a class="active" href="#home">Home</a>
-        <a href="#about">A propos</a>
-        <a href="#contact">Contact</a>
-    </div>
+    <h1>Welcome to Decathlon's Wikipedia !</h1>
+    <p>Sur ce site vous allez pouvoir rechercher les différents sports grâce à l'API de Decathlon !</p>
+    <button type="button" onclick="document.getElementById('demo').innerHTML = Date()">
+        Click me to display Date and Time.</button><br>
 
-    </head>
+    <input type="text" id="mySearch" onkeyup="searchFunction()" placeholder="Rechercher un sport...">
+    <p id="demo"></p>
+    <ul id="resultatDeRecherche" class="epure"></ul>
 
-    <body>
+    <script>
 
-        <h1>Welcome to Decathlon's Wikipedia !</h1>
-        <p>Sur ce site vous allez pouvoir rechercher les différents sports grâce à l'API de Decathlon !</p>
-        <button type="button" onclick="document.getElementById('demo').innerHTML = Date()">
-            Click me to display Date and Time.</button><br>
+        // API for get requests
+        let fetchRes = fetch(
+            "https://sports.api.decathlon.com/sports");
 
-        <input type="text" id="mySearch" onkeyup="searchFunction()" placeholder="Rechercher un sport...">
-        <p id="demo"></p>
-        <ul id="resultatDeRecherche" class="epure"></ul>
-
-        <script>
-
-            // API for get requests
-            let fetchRes = fetch(
-                "https://sports.api.decathlon.com/sports");
-
-            // fetchRes is the promise to resolve
-            // it by using.then() method
-            fetchRes.then(res =>
-                res.json()).then(d => {
-                    //document.getElementById("demo").innerHTML = this.data[0].type;
-                    console.log(d)
-                })// Debug fonction only
+        // fetchRes is the promise to resolve
+        // it by using.then() method
+        fetchRes.then(res =>
+            res.json()).then(d => {
+                //document.getElementById("demo").innerHTML = this.data[0].type;
+                console.log(d)
+            })// Debug fonction only
 
 
-            fetch('https://sports.api.decathlon.com/sports')
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (data) {
-                    var ul = document.getElementById("resultatDeRecherche");
-                    for (let i = 0; i < 698; i++) {
-                        //document.getElementById("demo").innerHTML = data.data[i].attributes.name;
-                        var nomsport = data.data[i].attributes.name;
-                        var imgsport = data.data[i].attributes.icon;
-                        var descsport = data.data[i].attributes.description;
-                        var idsport = data.data[i].id;
+        fetch('https://sports.api.decathlon.com/sports')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                var ul = document.getElementById("resultatDeRecherche");
+                for (let i = 0; i < 698; i++) {
+                    //document.getElementById("demo").innerHTML = data.data[i].attributes.name;
+                    var nomsport = data.data[i].attributes.name;
+                    var imgsport = data.data[i].attributes.icon;
+                    var descsport = data.data[i].attributes.description;
+                    var idsport = data.data[i].id;
 
-                        var img = document.createElement('img');
-                        var li = document.createElement('li');
-                        var desc = document.createElement('p');
+                    var img = document.createElement('img');
+                    var li = document.createElement('li');
+                    var desc = document.createElement('p');
 
-                        img.id = idsport + 'img';
-                        desc.id = idsport + 'desc';
-                        li.id = idsport;
+                    img.id = idsport + 'img';
+                    desc.id = idsport + 'desc';
+                    li.id = idsport;
 
-                        img.width = "42";
-                        img.height = "42";
-                        img.style = "vertical-align:middle";
-                        img.src = imgsport;//url image pour src
+                    img.width = "42";
+                    img.height = "42";
+                    img.style = "vertical-align:middle";
+                    img.src = imgsport;//url image pour src
 
-                        desc.append(descsport);
-                        desc.style.display = 'none';
+                    desc.append(descsport);
+                    desc.style.display = 'none';
 
-                        li.append(img);//Image dans li
-                        li.append(nomsport);
-                        li.append(desc);
-                        li.onclick = markSelection;
-                        ul.appendChild(li);//Li dans ul
-                    }
-                })
-                .catch(function (err) {
-                    console.log('error: ' + err);
-                });
-
-            function searchFunction() {
-                // Declare variables
-                var input, filter, ul, li, a, i;
-                input = document.getElementById("mySearch");
-                filter = input.value.toUpperCase();
-                ul = document.getElementById("resultatDeRecherche");
-                li = ul.getElementsByTagName("li");
-
-                // Loop through all list items, and hide those who don't match the search query
-                for (i = 0; i < li.length; i++) {
-                    //a = li[i].getElementsByTagName("a")[0];
-                    if (li[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        li[i].style.display = "";
-                    } else {
-                        li[i].style.display = "none";
-                    }
+                    li.append(img);//Image dans li
+                    li.append(nomsport);
+                    li.append(desc);
+                    li.onclick = markSelection;
+                    ul.appendChild(li);//Li dans ul
                 }
-            }
-            function markSelection() {
-                /*
-                if (this.style.fontWeight !== "bold") {
-                    this.style.fontWeight = "bold";
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
+            });
+
+        function searchFunction() {
+            // Declare variables
+            var input, filter, ul, li, a, i;
+            input = document.getElementById("mySearch");
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("resultatDeRecherche");
+            li = ul.getElementsByTagName("li");
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                //a = li[i].getElementsByTagName("a")[0];
+                if (li[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
                 } else {
-                    this.style.fontWeight = "normal";
-                }*/
-                console.log(this.id);
-                var desc =document.getElementById(this.id+'desc');
-                if (desc.style.display==='none'){
-                    desc.style.display='block';
-                }else{
-                    desc.style.display='none';
+                    li[i].style.display = "none";
                 }
             }
-        </script>
+        }
+        function markSelection() {
+            /*
+            if (this.style.fontWeight !== "bold") {
+                this.style.fontWeight = "bold";
+            } else {
+                this.style.fontWeight = "normal";
+            }*/
+            console.log(this.id);
+            var desc = document.getElementById(this.id + 'desc');
+            if (desc.style.display === 'none') {
+                desc.style.display = 'block';
+            } else {
+                desc.style.display = 'none';
+            }
+        }
+    </script>
 
-    </body>
+</body>
 
 </html>
