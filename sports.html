@@ -14,13 +14,6 @@
         font-style: italic;
     }
 
-    input.sportSearch {
-        margin: 5px;
-        width: 70%;
-        height: 30px;
-        height: 40px;
-    }
-
     ul.epure {
         list-style-type: none;
     }
@@ -83,7 +76,7 @@
     </svg>
     <a class="active" href="index.html">Home / Search</a>
     <a href="about.html">About</a>
-    <a href="#contact">Contact</a>
+    <a href="contact.html">Contact</a>
 </div>
 
 </head>
@@ -101,6 +94,10 @@
     <img id="sportImage">
     </img>
 
+    <ul id="children" class="epure">
+        Children :
+    </ul>
+
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         var sportid = urlParams.get('sportid');
@@ -110,8 +107,9 @@
                 return response.json();
             })
             .then(function (data) {
+                var ul = document.getElementById("children");
                 for (let i = 0; i < 698; i++) {
-                    if (data.data[i].id==sportid) {
+                    if (data.data[i].id == sportid) {
                         var nomsport = data.data[i].attributes.name;
                         var imgsport = data.data[i].relationships.images.data[0].url;
                         var descsport = data.data[i].attributes.description;
@@ -120,15 +118,63 @@
                         var img = document.createElement('img');
                         var desc = document.createElement('p');
 
-                        document.getElementById("titre").innerHTML=nomsport;
+                        document.getElementById("titre").innerHTML = nomsport;
                         document.getElementById("sportImage").src = imgsport;//url image pour src
-                        document.getElementById("description").innerHTML=descsport;
+                        document.getElementById("description").innerHTML = descsport;
                         img.alt = nomsport + ' image';
 
+                        for (let j = 0; j < data.data[i].relationships.children.length; j++) {
+                            var img = document.createElement('img');
+                            var li = document.createElement('li');
+                            var nom = document.createElement('p');
+                            var link = document.createElement('a');
+
+                            img.width = "50";
+                            img.height = "50";
+                            img.style = "vertical-align:middle";
+                            img.src = imgsport;//url image pour src
+                            img.alt = nomsport + ' image';
+
+                            nom.append(nomsport);
+                            nom.style.display = "inline";
+                            nom.style.padding = "3px";
+                            nom.style.borderRadius = "6px";
+                            nom.style.background = "#BEDEEF";
+                            nom.style.fontSize = "22px";
+
+                            link.append("More information...");
+                            link.style.position = "absolute";
+                            link.style.bottom = "3px";
+                            link.style.right = "5px";
+                            link.style.margin = "0px";
+                            link.style.padding = "5px";
+                            link.style.background = "#BEDEEF"
+                            link.style.borderRadius = "6px";
+                            link.href = "sports.html?sportid=" + data.data[i].relationships.children[j].data.id;
+
+
+                            li.append(img);//Image dans li
+                            li.append(nom);
+                            li.append(desc);
+                            li.append(link);
+
+                            li.style.cursor = "pointer";
+                            li.style.borderRadius = "6px";
+                            li.style.margin = "3px";
+                            li.style.padding = "3px";
+                            li.style.background = "#7EBEE0";
+                            li.style.position = "relative";
+
+                            ul.appendChild(li);
+
+                        }
 
                     }
                 }
 
+            })
+            .catch(function (err) {
+                console.log('error: ' + err);
             })
     </script>
 
