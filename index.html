@@ -15,7 +15,7 @@
     }
 
     input.sportSearch {
-        margin:5px;
+        margin: 5px;
         width: 70%;
         height: 30px;
         height: 40px;
@@ -104,7 +104,7 @@
             "https://sports.api.decathlon.com/sports");
         fetchRes.then(res =>
             res.json()).then(d => {
-                console.log(d) 
+                console.log(d)
             })// Debug fonction only
 
 
@@ -131,11 +131,11 @@
                     desc.id = idsport + 'desc';
                     li.id = idsport;
 
-                    img.width = "45";
-                    img.height = "45";
+                    img.width = "50";
+                    img.height = "50";
                     img.style = "vertical-align:middle";
                     img.src = imgsport;//url image pour src
-                    img.alt = nomsport+' image';
+                    img.alt = nomsport + ' image';
 
                     desc.append(descsport);
                     desc.style.display = 'none';
@@ -149,6 +149,7 @@
                     nom.style.padding = "3px";
                     nom.style.borderRadius = "6px";
                     nom.style.background = "#BEDEEF";
+                    nom.style.fontSize = "22px";
 
                     li.append(img);//Image dans li
                     li.append(nom);
