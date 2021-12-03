@@ -84,8 +84,6 @@
     <a class="active" href="index.html">Home / Search</a>
     <a href="#about">A propos</a>
     <a href="#contact">Contact</a>
-    <input class="sportSearch" type="text" id="mySearch" onkeyup="searchFunction()" /*onclick="afficheResultats()" */
-        placeholder="Search for a sport...">
 </div>
 
 </head>
@@ -94,7 +92,8 @@
 
     <h1>Welcome to Decathlon's Wikipedia !</h1>
     <p>On this website you will be able to look for any sport thanks to Decathlon's API !</p>
-
+    <input class="sportSearch" type="text" id="mySearch" onkeyup="searchFunction()" /*onclick="afficheResultats()" */
+        placeholder="Search for a sport...">
     <p id="demo"></p>
     <ul id="resultatDeRecherche" class="epure"></ul>
 
@@ -159,7 +158,7 @@
                     link.style.position = "absolute";
                     link.style.bottom = "3px";
                     link.style.right = "5px";
-                    link.href = "bruh.html";
+                    link.href = "sports.html?sportid="+idsport;
 
 
                     li.append(img);//Image dans li
