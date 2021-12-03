@@ -6,6 +6,10 @@
         box-sizing: border-box;
     }
 
+    ul.epure {
+        list-style-type: none;
+    }
+
     body {
         margin: 0;
         font-family: Arial, Helvetica, sans-serif;
@@ -69,7 +73,7 @@
 
         <input type="text" id="mySearch" onkeyup="searchFunction()" placeholder="Rechercher un sport...">
         <p id="demo"></p>
-        <ul id="resultatDeRecherche"></ul>
+        <ul id="resultatDeRecherche" class="epure"></ul>
 
         <script>
 
@@ -94,9 +98,13 @@
                     var ul = document.getElementById("resultatDeRecherche");
                     for (let i = 0; i < 698; i++) {
                         //document.getElementById("demo").innerHTML = data.data[i].attributes.name;
-                        var sport = data.data[i].attributes.name;
+                        var nomsport = data.data[i].attributes.name;
+                        var imgsport = data.data[i].attributes.icon;
+                        var img = document.createElement('img');
                         var li = document.createElement('li');
-                        li.innerHTML=sport;
+                        img.src=data.data[i].attributes.icon;
+                        li.innerHTML = nomsport;
+                        li.appendChild(img);
                         ul.appendChild(li);
                     }
                 })
