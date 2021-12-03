@@ -102,10 +102,13 @@
                         var imgsport = data.data[i].attributes.icon;
                         var img = document.createElement('img');
                         var li = document.createElement('li');
-                        img.src=data.data[i].attributes.icon;
+                        img.width="42";
+                        img.height="42";
+                        img.style="vertical-align:middle";
+                        img.src=data.data[i].attributes.icon;//url image pour src
                         li.innerHTML = nomsport;
-                        li.appendChild(img);
-                        ul.appendChild(li);
+                        li.appendChild(img);//Image dans li
+                        ul.appendChild(li);//Li dans ul
                     }
                 })
                 .catch(function (err) {
