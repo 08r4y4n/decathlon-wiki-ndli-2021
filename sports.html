@@ -92,9 +92,9 @@
     <h1>
         Description of the sport :
     </h1>
-    <p id="titre">
+    <h2 id="titre">
 
-    </p>
+    </h2>
     <p id="description">
 
     </p>
@@ -103,26 +103,31 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const sportid = urlParams.get('sportid');
-        console.log(sportid);
+        var sportid = urlParams.get('sportid');
 
         fetch('https://sports.api.decathlon.com/sports')
             .then(function (response) {
                 return response.json();
             })
             .then(function (data) {
-                var nomsport = data.data[sportid].attributes.name;
-                var imgsport = data.data[sportid].relationships.images.data[0];
-                var descsport = data.data[sportid].attributes.description;
+                for (let i = 0; i < 698; i++) {
+                    if (data.data[i].id==sportid) {
+                        var nomsport = data.data[i].attributes.name;
+                        var imgsport = data.data[i].relationships.images.data[0].url;
+                        var descsport = data.data[i].attributes.description;
 
-                var img = document.createElement('img');
+                        var nom = document.createElement('h2');
+                        var img = document.createElement('img');
+                        var desc = document.createElement('p');
 
-                console.log(imgsport);
-                document.getElementById("sportImage").src = imgsport;//url image pour src
-                img.alt = nomsport + ' image';
+                        document.getElementById("titre").innerHTML=nomsport;
+                        document.getElementById("sportImage").src = imgsport;//url image pour src
+                        document.getElementById("description").innerHTML=descsport;
+                        img.alt = nomsport + ' image';
 
-            
 
+                    }
+                }
 
             })
     </script>
