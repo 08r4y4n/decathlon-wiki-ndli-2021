@@ -7,24 +7,6 @@
         box-sizing: border-box;
     }
 
-    h1 {
-        text-align: center;
-        transform: rotate(-10deg);
-        padding: 25px;
-        font-style: italic;
-    }
-
-    input.sportSearch {
-        margin: 5px;
-        width: 70%;
-        height: 30px;
-        height: 40px;
-    }
-
-    ul.epure {
-        list-style-type: none;
-    }
-
     body {
         margin: 0;
         font-family: Arial, Helvetica, sans-serif;
@@ -82,7 +64,7 @@
         </g>
     </svg>
     <a class="active" href="index.html">Home / Search</a>
-    <a href="#about">A propos</a>
+    <a href="about.html">About</a>
     <a href="#contact">Contact</a>
 </div>
 
@@ -90,47 +72,11 @@
 
 <body>
     <h1>
-        Description of the sport :
+        Merci d'avoir visité mon petit site web !
     </h1>
-    <h2 id="titre">
 
-    </h2>
-    <p id="description">
-
-    </p>
-    <img id="sportImage">
-    </img>
-
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        var sportid = urlParams.get('sportid');
-
-        fetch('https://sports.api.decathlon.com/sports')
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                for (let i = 0; i < 698; i++) {
-                    if (data.data[i].id==sportid) {
-                        var nomsport = data.data[i].attributes.name;
-                        var imgsport = data.data[i].relationships.images.data[0].url;
-                        var descsport = data.data[i].attributes.description;
-
-                        var nom = document.createElement('h2');
-                        var img = document.createElement('img');
-                        var desc = document.createElement('p');
-
-                        document.getElementById("titre").innerHTML=nomsport;
-                        document.getElementById("sportImage").src = imgsport;//url image pour src
-                        document.getElementById("description").innerHTML=descsport;
-                        img.alt = nomsport + ' image';
-
-                        
-                    }
-                }
-
-            })
-    </script>
+    <p>
+        C'est la première fois que je fais du développement Web et j'ai tout appris pendant cette nuit de l'info 2021 ! Je suis bien heureux de l'avoir fait et j'espère que ce petit site web que j'ai pu apprendre à faire tout seul vous aura plu autant que l'aventure m'a plu ! :D    </p>
 
 </body>
 
