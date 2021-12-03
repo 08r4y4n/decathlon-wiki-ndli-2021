@@ -95,12 +95,11 @@
     <p id="titre">
 
     </p>
-    <p id ="description">
+    <p id="description">
 
     </p>
-    <ul>
-
-    </ul>
+    <img id="sportImage">
+    </img>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
@@ -113,58 +112,16 @@
             })
             .then(function (data) {
                 var nomsport = data.data[sportid].attributes.name;
-                var imgsport = data.data[sportid].relationships.images.data[0].url;
+                var imgsport = data.data[sportid].relationships.images.data[0];
                 var descsport = data.data[sportid].attributes.description;
 
-                var li = document.createElement('li');
                 var img = document.createElement('img');
-                var nom = document.createElement('p');
-                var desc = document.createElement('p');
 
-                img.id = idsport + 'img';
-                nom.id = idsport + 'nom';
-                desc.id = idsport + 'desc';
-                li.id = idsport;
-
-                img.width = "50";
-                img.height = "50";
-                img.style = "vertical-align:middle";
-                img.src = imgsport;//url image pour src
+                console.log(imgsport);
+                document.getElementById("sportImage").src = imgsport;//url image pour src
                 img.alt = nomsport + ' image';
 
-                desc.append(descsport);
-                desc.style.display = 'none';
-                desc.style.margin = "0px";
-                desc.style.padding = "5px";
-                desc.style.background = "#BEDEEF"
-                desc.style.borderRadius = "6px";
-
-                nom.append(nomsport);
-                nom.style.display = "inline";
-                nom.style.padding = "3px";
-                nom.style.borderRadius = "6px";
-                nom.style.background = "#BEDEEF";
-                nom.style.fontSize = "22px";
-
-                link.append("Explore more !");
-                link.style.display = 'none'
-                link.style.position = "absolute";
-                link.style.bottom = "3px";
-                link.style.right = "5px";
-                link.href = "sports.html?sportid=" + idsport;
-
-
-                li.append(img);//Image dans li
-                li.append(nom);
-                li.append(desc);
-                li.append(link);
-
-                li.style.cursor = "pointer";
-                li.style.borderRadius = "6px";
-                li.style.margin = "3px";
-                li.style.padding = "3px";
-                li.style.background = "#7EBEE0";
-                li.style.position = "relative";
+            
 
 
             })
