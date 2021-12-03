@@ -68,9 +68,6 @@
     }
 </style>
 </head>
-<title>
-    SportWiki by Decathlon
-</title>
 
 <div class="topnav">
     <svg height="40px" viewBox="0 0 200 50" aria-label="Decathlon" role="img">
@@ -85,147 +82,56 @@
         </g>
     </svg>
     <a class="active" href="index.html">Home / Search</a>
-    <a href="about.html">About</a>
+    <a href="#about">A propos</a>
     <a href="#contact">Contact</a>
 </div>
 
 </head>
 
 <body>
+    <h1>
+        Description of the sport :
+    </h1>
+    <h2 id="titre">
 
-    <h1>Welcome to Decathlon's Wikipedia !</h1>
-    <p>On this website you will be able to look for any sport thanks to Decathlon's API !</p>
-    <input class="sportSearch" type="text" id="mySearch" onkeyup="searchFunction()" /*onclick="afficheResultats()" */
-        placeholder="Search for a sport...">
-    <p id="demo"></p>
-    <ul id="resultatDeRecherche" class="epure"></ul>
+    </h2>
+    <p id="description">
+
+    </p>
+    <img id="sportImage">
+    </img>
 
     <script>
-
-        // API for get requests (DEBUG)
-        let fetchRes = fetch(
-            "https://sports.api.decathlon.com/sports");
-        fetchRes.then(res =>
-            res.json()).then(d => {
-                console.log(d)
-            })// Debug fonction only
-
+        const urlParams = new URLSearchParams(window.location.search);
+        var sportid = urlParams.get('sportid');
 
         fetch('https://sports.api.decathlon.com/sports')
             .then(function (response) {
                 return response.json();
             })
             .then(function (data) {
-                var ul = document.getElementById("resultatDeRecherche");
                 for (let i = 0; i < 698; i++) {
-                    //document.getElementById("demo").innerHTML = data.data[i].attributes.name;
-                    var nomsport = data.data[i].attributes.name;
-                    var imgsport = data.data[i].attributes.icon;
-                    var descsport = data.data[i].attributes.description;
-                    var idsport = data.data[i].id;
+                    if (data.data[i].id==sportid) {
+                        var nomsport = data.data[i].attributes.name;
+                        var imgsport = data.data[i].relationships.images.data[0].url;
+                        var descsport = data.data[i].attributes.description;
 
-                    var img = document.createElement('img');
-                    var li = document.createElement('li');
-                    var nom = document.createElement('p');
-                    var desc = document.createElement('p');
-                    var link = document.createElement('a');
+                        var nom = document.createElement('h2');
+                        var img = document.createElement('img');
+                        var desc = document.createElement('p');
 
-                    img.id = idsport + 'img';
-                    nom.id = idsport + 'nom';
-                    desc.id = idsport + 'desc';
-                    link.id = idsport + 'link';
-                    li.id = idsport;
+                        document.getElementById("titre").innerHTML=nomsport;
+                        document.getElementById("sportImage").src = imgsport;//url image pour src
+                        document.getElementById("description").innerHTML=descsport;
+                        img.alt = nomsport + ' image';
 
-                    img.width = "50";
-                    img.height = "50";
-                    img.style = "vertical-align:middle";
-                    img.src = imgsport;//url image pour src
-                    img.alt = nomsport + ' image';
-
-                    desc.append(descsport);
-                    desc.style.display = 'none';
-                    desc.style.margin = "0px";
-                    desc.style.padding = "5px";
-                    desc.style.background = "#BEDEEF"
-                    desc.style.borderRadius = "6px";
-
-                    nom.append(nomsport);
-                    nom.style.display = "inline";
-                    nom.style.padding = "3px";
-                    nom.style.borderRadius = "6px";
-                    nom.style.background = "#BEDEEF";
-                    nom.style.fontSize = "22px";
-
-                    link.append("Explore more !");
-                    link.style.display = 'none'
-                    link.style.position = "absolute";
-                    link.style.bottom = "3px";
-                    link.style.right = "5px";
-                    link.href = "sports.html?sportid="+idsport;
-
-
-                    li.append(img);//Image dans li
-                    li.append(nom);
-                    li.append(desc);
-                    li.append(link);
-
-                    li.onclick = markSelection;
-                    li.style.cursor = "pointer";
-                    li.style.borderRadius = "6px";
-                    li.style.margin = "3px";
-                    li.style.padding = "3px";
-                    li.style.background = "#7EBEE0";
-                    li.style.position = "relative";
-
-                    ul.appendChild(li);//Li dans ul
+                        
+                    }
                 }
+
             })
-            .catch(function (err) {
-                console.log('error: ' + err);
-            });
-
-        function searchFunction() {
-            // Declare variables
-            var input, filter, ul, li, a, i;
-            input = document.getElementById("mySearch");
-            filter = input.value.toUpperCase();
-            ul = document.getElementById("resultatDeRecherche");
-            li = ul.getElementsByTagName("li");
-
-            // Loop through all list items, and hide those who don't match the search query
-            for (i = 0; i < li.length; i++) {
-                if (li[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                    li[i].style.display = "";
-                } else {
-                    li[i].style.display = "none";
-                }
-            }
-        }
-        function markSelection() {
-            var desc = document.getElementById(this.id + 'desc');
-            var link = document.getElementById(this.id + 'link');
-            if (desc.style.display === 'none') {
-                desc.style.display = 'block';
-                link.style.display = 'block';
-                this.style.paddingBottom = "35px";
-
-            } else {
-                desc.style.display = 'none';
-                link.style.display = 'none';
-                this.style.paddingBottom = "0px";
-            }
-        }
-
-        function afficheResultats() {
-            var res = document.getElementById("resultatDeRecherche");
-            if (res.style.display === 'none') {
-                res.style.display = 'block';
-            } else {
-                res.style.display = 'none';
-            }
-        }
     </script>
-    /*TO DO : Add child-parents interaction etc...*/
+
 </body>
 
 </html>
